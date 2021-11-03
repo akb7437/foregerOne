@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "184153376438",
+    "firebase_url": "https://foragerone-b352d-default-rtdb.firebaseio.com",
+    "project_id": "foragerone-b352d",
+    "storage_bucket": "foragerone-b352d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184153376438:android:36457a8846417b58a14817",
+        "android_client_info": {
+          "package_name": "com.becker.foragerone1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184153376438-k9l1ji6se06cl417rturqkvr5dsd7qql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5w8QxXFxMmN_OvAdf9gNE23Sal6xZtIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184153376438-k9l1ji6se06cl417rturqkvr5dsd7qql.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184153376438:android:6687ecabd9a4f012a14817",
+        "android_client_info": {
+          "package_name": "com.becker.foreger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184153376438-k9l1ji6se06cl417rturqkvr5dsd7qql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5w8QxXFxMmN_OvAdf9gNE23Sal6xZtIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184153376438-k9l1ji6se06cl417rturqkvr5dsd7qql.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
