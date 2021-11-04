@@ -99,6 +99,19 @@ public class MapsActivity extends AppCompatActivity {
                     Toast.makeText(MapsActivity.this, "congrats", Toast.LENGTH_SHORT).show();
 
                 }
+                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(@NonNull LatLng latLng) {
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(latLng);
+                        markerOptions.title("Mushroom found!");
+                        googleMap.clear();
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20f));
+                        googleMap.addMarker(markerOptions);
+
+
+                    }
+                });
 
             }
         });
