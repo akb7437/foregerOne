@@ -28,10 +28,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView iMushroomFeed;
     private FirestoreRecyclerAdapter adapter1;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +40,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
         map = (Button) findViewById(R.id.goToMap);
         map.setOnClickListener(this);
+
 
         Query query = firebaseFirestore1.collection("Maps data");
 

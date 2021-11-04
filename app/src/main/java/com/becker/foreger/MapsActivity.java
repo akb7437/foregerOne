@@ -13,6 +13,9 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -37,16 +40,26 @@ public class MapsActivity extends AppCompatActivity {
     private boolean permissionGranted = false;
     private static final int PERMISSION_CODE = 1;
     private FusedLocationProviderClient afusedLocationProviderClient;
-    private GoogleMap aMap;
+    public  GoogleMap aMap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        Button addMushMarker = (Button) findViewById(R.id.addMushMark);
+
+
         getPermission();
 
-
+        addMushMarker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View view = (LayoutInflater.from(MapsActivity.this))
+                        .inflate(R.layout.dialog_layout, null);
+            }
+        });
 /*
         Fragment fragment = new MapFragment();
 
@@ -96,6 +109,7 @@ public class MapsActivity extends AppCompatActivity {
 
                 if (permissionGranted) {
                     getLocation();
+
                     aMap.setMyLocationEnabled(true);
                     Toast.makeText(MapsActivity.this, "congrats", Toast.LENGTH_SHORT).show();
 
@@ -166,5 +180,12 @@ public class MapsActivity extends AppCompatActivity {
 
     private void moveCamera(LatLng latLng, float zoom){
     aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
+    }
+
+
+
+    public void add(){
+
+
     }
 }
