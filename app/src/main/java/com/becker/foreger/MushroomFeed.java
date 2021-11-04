@@ -9,14 +9,16 @@ public class MushroomFeed {
 
 
     String MushroomFound;
-    String Comment;
+
+
 
     public MushroomFeed(){}
 
 
-    public MushroomFeed( String mushroomFound, String comment) {
+    public MushroomFeed( String mushroomFound ) {
         MushroomFound = mushroomFound;
-        Comment = comment;
+
+
     }
 
 
@@ -27,16 +29,6 @@ public class MushroomFeed {
     public void setMushroomFound(String mushroomFound) {
         MushroomFound = mushroomFound;
     }
-
-    public String getComment() {
-        return Comment;
-    }
-
-    public void setComment(String comment) {
-        Comment = comment;
-    }
-
-
 
 
 }

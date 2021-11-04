@@ -15,6 +15,9 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -24,6 +27,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
     private FirebaseFirestore firebaseFirestore1;
     private RecyclerView iMushroomFeed;
     private FirestoreRecyclerAdapter adapter1;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +61,12 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             protected void onBindViewHolder(@NonNull Home.MushroomFeedViewHolder holder, int position, @NonNull MushroomFeed model) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String currentUser = user.getEmail();
                 holder.list_usermushname.setText(model.getMushroomFound());
-                holder.list_usercomment.setText(model.getComment());
+                holder.list_user.setText(currentUser);
+
+
             }
         };
 
@@ -66,17 +77,17 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
     private class MushroomFeedViewHolder extends RecyclerView.ViewHolder{
 
-
+        private TextView list_user;
         private TextView list_usermushname;
-        private TextView list_usercomment;
+
 
 
         public MushroomFeedViewHolder(@NonNull View itemView) {
             super(itemView);
 
-
+            list_user = itemView.findViewById(R.id.userComment);
             list_usermushname = itemView.findViewById(R.id.userMushName);
-            list_usercomment = itemView.findViewById(R.id.userComment);
+
 
         }
     }
