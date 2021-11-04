@@ -31,7 +31,7 @@ import com.google.android.gms.tasks.Task;
 import java.nio.charset.StandardCharsets;
 
 public class MapsActivity extends AppCompatActivity {
- private static final String FINE = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String FINE = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE = Manifest.permission.ACCESS_COARSE_LOCATION;
     private boolean permissionGranted = false;
     private static final int PERMISSION_CODE = 1;
@@ -56,19 +56,49 @@ public class MapsActivity extends AppCompatActivity {
 */
     }
 
-    private void getLocation(){
+    private void getLocation() {
         afusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
+        try {
+
+            @SuppressLint("MissingPermission")
+            Task location = afusedLocationProviderClient.getLastLocation();
+            location.addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(MapsActivity.this, "Found location", Toast.LENGTH_SHORT).show();
+                        Location currentLocation = (Location) task.getResult();
+                        moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 15f);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Location not found", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        } catch (SecurityException e) {
+            Toast.makeText(MapsActivity.this, "Location not found", Toast.LENGTH_SHORT).show();
+
+        }
 
     }
 
-    private void initMap(){
+    private void initMap() {
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.map);
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
+                Toast.makeText(MapsActivity.this, "Map Ready", Toast.LENGTH_SHORT).show();
                 aMap = googleMap;
+
+                if (permissionGranted) {
+                    getLocation();
+                    aMap.setMyLocationEnabled(true);
+                    Toast.makeText(MapsActivity.this, "congrats", Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });
@@ -92,6 +122,7 @@ public class MapsActivity extends AppCompatActivity {
 }
 
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         permissionGranted = false;
@@ -107,6 +138,7 @@ public class MapsActivity extends AppCompatActivity {
 
                     }
                     permissionGranted = true;
+                    Toast.makeText(MapsActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
                     initMap();
                 }
             }
@@ -114,32 +146,9 @@ public class MapsActivity extends AppCompatActivity {
         }
     }
 
-    private void getDeviceLocation(){
-        afusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        try {
-            if (permissionGranted) {
-                Task location = afusedLocationProviderClient.getLastLocation();
-                location.addOnCompleteListener(new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(MapsActivity.this, "Successful", Toast.LENGTH_SHORT).show();
-                            Location location1 = (Location) task.getResult();
-
-                        }
-
-                    }
-                });
-            }
-
-
-        }catch(SecurityException e){
-
-    }
-}
 
     private void moveCamera(LatLng latLng, float zoom){
-
+    aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
     }
 }
