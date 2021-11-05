@@ -1,6 +1,7 @@
 package com.becker.foreger;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -43,33 +45,17 @@ public class MapsActivity extends AppCompatActivity {
     public  GoogleMap aMap;
 
 
+// On create method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        Button addMushMarker = (Button) findViewById(R.id.addMushMark);
-
-
         getPermission();
 
-        addMushMarker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view = (LayoutInflater.from(MapsActivity.this))
-                        .inflate(R.layout.dialog_layout, null);
-            }
-        });
-/*
-        Fragment fragment = new MapFragment();
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frameLayout,fragment)
-                .commit();
-*/
     }
 
+// Get location method
     private void getLocation() {
         afusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -97,15 +83,20 @@ public class MapsActivity extends AppCompatActivity {
 
     }
 
+// Init map
     private void initMap() {
-        SupportMapFragment supportMapFragment = (SupportMapFragment)
-                getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @SuppressLint("MissingPermission")
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 Toast.makeText(MapsActivity.this, "Map Ready", Toast.LENGTH_SHORT).show();
                 aMap = googleMap;
+                Button addMushMarker = (Button) findViewById(R.id.addbtn);
+                MarkerOptions markerOptions = new MarkerOptions();
+                String Hello = "Hello";
+
+
 
                 if (permissionGranted) {
                     getLocation();
@@ -113,17 +104,36 @@ public class MapsActivity extends AppCompatActivity {
                     aMap.setMyLocationEnabled(true);
                     Toast.makeText(MapsActivity.this, "congrats", Toast.LENGTH_SHORT).show();
 
+
+
+
                 }
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
-                    public void onMapClick(@NonNull LatLng latLng) {
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(latLng);
-                        markerOptions.title("Mushroom found!");
-                        googleMap.clear();
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20f));
-                        googleMap.addMarker(markerOptions);
+                    public void onMapClick(@NonNull LatLng latLng1) {
+                        View view = (LayoutInflater.from(MapsActivity.this))
+                                .inflate(R.layout.dialog_layout, null);
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(MapsActivity.this);
+                        dialog.setView(view);
+                            //final EditText mName = (EditText) findViewById()
+                            addMushMarker.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Toast.makeText(MapsActivity.this, "hi", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
+
+
+                        dialog.show();
+
+/*
+                        markerOptions.position(latLng1);
+                        markerOptions.title("Mushroom found!");
+                        markerOptions.snippet(Hello);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng1, 20f));
+                        googleMap.addMarker(markerOptions);
+*/
 
 
                     }
@@ -169,6 +179,7 @@ public class MapsActivity extends AppCompatActivity {
                     permissionGranted = true;
                     Toast.makeText(MapsActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
                     initMap();
+
                 }
             }
 
@@ -184,8 +195,5 @@ public class MapsActivity extends AppCompatActivity {
 
 
 
-    public void add(){
 
-
-    }
 }
