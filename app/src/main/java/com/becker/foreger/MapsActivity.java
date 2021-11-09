@@ -10,8 +10,11 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.media.MediaDrm;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,6 +56,9 @@ public class MapsActivity extends AppCompatActivity {
 
         getPermission();
 
+
+
+
     }
 
 // Get location method
@@ -92,7 +98,7 @@ public class MapsActivity extends AppCompatActivity {
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 Toast.makeText(MapsActivity.this, "Map Ready", Toast.LENGTH_SHORT).show();
                 aMap = googleMap;
-                Button addMushMarker = (Button) findViewById(R.id.addbtn);
+
                 MarkerOptions markerOptions = new MarkerOptions();
                 String Hello = "Hello";
 
@@ -111,28 +117,37 @@ public class MapsActivity extends AppCompatActivity {
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(@NonNull LatLng latLng1) {
+
+
                         View view = (LayoutInflater.from(MapsActivity.this))
                                 .inflate(R.layout.dialog_layout, null);
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MapsActivity.this);
                         dialog.setView(view);
-                            //final EditText mName = (EditText) findViewById()
-                            addMushMarker.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Toast.makeText(MapsActivity.this, "hi", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                        EditText comment = (EditText) findViewById(R.id.commentbtn);
+                        dialog.setCancelable(true).setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                markerOptions.position(latLng1);
+                                markerOptions.title("Mushroom found!");
+                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng1, 20f));
+                                googleMap.addMarker(markerOptions);
+                            }
+                        });
+                        Dialog dialog1 = dialog.create();
+                        dialog1.show();
 
 
 
-                        dialog.show();
+
+
+
+
+
+
 
 /*
-                        markerOptions.position(latLng1);
-                        markerOptions.title("Mushroom found!");
-                        markerOptions.snippet(Hello);
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng1, 20f));
-                        googleMap.addMarker(markerOptions);
+
 */
 
 
