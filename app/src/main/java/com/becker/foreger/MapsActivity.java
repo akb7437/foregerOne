@@ -36,6 +36,9 @@ import com.becker.foreger.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.nio.charset.StandardCharsets;
 
@@ -46,6 +49,8 @@ public class MapsActivity extends AppCompatActivity {
     private static final int PERMISSION_CODE = 1;
     private FusedLocationProviderClient afusedLocationProviderClient;
     public  GoogleMap aMap;
+    String newName;
+    String newComment;
 
 
 // On create method
@@ -55,6 +60,7 @@ public class MapsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maps);
 
         getPermission();
+
 
 
 
@@ -100,7 +106,10 @@ public class MapsActivity extends AppCompatActivity {
                 aMap = googleMap;
 
                 MarkerOptions markerOptions = new MarkerOptions();
-                String Hello = "Hello";
+
+                FirebaseFirestore mydb = FirebaseFirestore.getInstance();
+                DocumentReference mushdata = mydb.collection("Maps data").document();
+
 
 
 
@@ -123,13 +132,30 @@ public class MapsActivity extends AppCompatActivity {
                                 .inflate(R.layout.dialog_layout, null);
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MapsActivity.this);
                         dialog.setView(view);
-                        EditText comment = (EditText) findViewById(R.id.commentbtn);
-                        dialog.setCancelable(true).setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                        final EditText mname = (EditText) view.findViewById(R.id.mushfoundedt);
+                        final EditText mcomment = (EditText) view.findViewById(R.id.commentedt);
+
+
+                        dialog.setCancelable(true);
+                        dialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                newName = mname.getText().toString();
+                                newComment = mcomment.getText().toString();
 
+
+                                MushroomFeed mushfeed = new MushroomFeed();
+                                mushfeed.setName(newName);
+                                mushfeed.setMushroomFound(newComment);
+                                mushdata.set(mushfeed).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(MapsActivity.this, "Data inserted", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                                 markerOptions.position(latLng1);
-                                markerOptions.title("Mushroom found!");
+                                markerOptions.title(newName);
+                                markerOptions.snippet(mcomment.toString());
                                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng1, 20f));
                                 googleMap.addMarker(markerOptions);
                             }

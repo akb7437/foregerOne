@@ -8,18 +8,18 @@
 
 
     <EditText
-        android:id="@+id/mushfoundbtn"
+        android:id="@+id/mushfoundedt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Mushroom name"
         android:padding="20dp"/>
 
     <EditText
-        android:id="@+id/commentbtn"
+        android:id="@+id/commentedt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Comment"
-        app:layout_constraintTop_toBottomOf="@+id/mushfoundbtn"
+        app:layout_constraintTop_toBottomOf="@+id/mushfoundedt"
         android:padding="20dp"/>
 
 

@@ -9,18 +9,16 @@ public class MushroomFeed {
 
 
     String MushroomFound;
+    String Name;
 
 
 
     public MushroomFeed(){}
 
-
-    public MushroomFeed( String mushroomFound ) {
+    public MushroomFeed(String mushroomFound, String name) {
         MushroomFound = mushroomFound;
-
-
+        Name = name;
     }
-
 
     public String getMushroomFound() {
         return MushroomFound;
@@ -30,5 +28,11 @@ public class MushroomFeed {
         MushroomFound = mushroomFound;
     }
 
+    public String getName() {
+        return Name;
+    }
 
+    public void setName(String name) {
+        this.Name = name;
+    }
 }

@@ -62,6 +62,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
                 String currentUser = user.getEmail();
                 holder.list_usermushname.setText(model.getMushroomFound());
                 holder.list_user.setText(currentUser);
+                holder.list_Name.setText(model.getName());
 
 
             }
@@ -73,7 +74,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
     }
 
     private class MushroomFeedViewHolder extends RecyclerView.ViewHolder{
-
+        private TextView list_Name;
         private TextView list_user;
         private TextView list_usermushname;
 
@@ -81,7 +82,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
         public MushroomFeedViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            list_Name = itemView.findViewById(R.id.Name);
             list_user = itemView.findViewById(R.id.userComment);
             list_usermushname = itemView.findViewById(R.id.userMushName);
 
