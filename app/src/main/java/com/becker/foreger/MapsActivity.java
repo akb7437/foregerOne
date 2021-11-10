@@ -62,9 +62,6 @@ public class MapsActivity extends AppCompatActivity {
         getPermission();
 
 
-
-
-
     }
 
 // Get location method
