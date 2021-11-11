@@ -161,19 +161,6 @@ public class MapsActivity extends AppCompatActivity {
                         dialog1.show();
 
 
-
-
-
-
-
-
-
-
-/*
-
-*/
-
-
                     }
                 });
 
@@ -230,8 +217,5 @@ public class MapsActivity extends AppCompatActivity {
     private void moveCamera(LatLng latLng, float zoom){
     aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
     }
-
-
-
 
 }
