@@ -2,6 +2,11 @@ package com.becker.foreger;
 
 public class User {
 
+    /*************************
+     *
+     * Constructor to create a user object
+     *
+     **************************/
 
     public String email;
 

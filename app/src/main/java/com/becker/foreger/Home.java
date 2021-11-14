@@ -32,8 +32,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+
+        // Initializing firebase instance and other variables
         setContentView(R.layout.activity_home);
         firebaseFirestore1 = FirebaseFirestore.getInstance();
         iMushroomFeed = findViewById(R.id.mushroomFeedList);
@@ -45,13 +46,14 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         map = (Button) findViewById(R.id.goToMap);
         map.setOnClickListener(this);
 
-
+        // Querying my maps data database
         Query query = firebaseFirestore1.collection("Maps data");
 
         FirestoreRecyclerOptions<MushroomFeed>
                 options = new FirestoreRecyclerOptions.Builder<MushroomFeed>()
                 .setQuery(query, MushroomFeed.class).build();
 
+        // populating my recyclerview with maps data
         adapter1 = new FirestoreRecyclerAdapter<MushroomFeed, Home.MushroomFeedViewHolder>(options) {
             @NonNull
             @Override
@@ -60,6 +62,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
                 return new Home.MushroomFeedViewHolder(view);
             }
 
+            //Setting mushroomFeed objects
             @Override
             protected void onBindViewHolder(@NonNull Home.MushroomFeedViewHolder holder, int position, @NonNull MushroomFeed model) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -77,11 +80,11 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         iMushroomFeed.setAdapter(adapter1);
     }
 
-    private class MushroomFeedViewHolder extends RecyclerView.ViewHolder{
+    // Creating place holders for mushroomFeed objects.
+    private class MushroomFeedViewHolder extends RecyclerView.ViewHolder {
         private TextView list_Name;
         private TextView list_user;
         private TextView list_usermushname;
-
 
 
         public MushroomFeedViewHolder(@NonNull View itemView) {
@@ -94,6 +97,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    // Setting adapter to listen for Query data
     @Override
     protected void onStop() {
         super.onStop();
@@ -106,8 +110,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         adapter1.startListening();
     }
 
-
-
+    // Setting navigation buttons
     @Override
     public void onClick(View v) {
 
@@ -120,14 +123,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
                 break;
 
         }
-    }
-
-    public class CustomLinearLayoutManager extends LinearLayoutManager {
-        public CustomLinearLayoutManager(Context context) {
-            super(context);
-        }
-
-
     }
 
 }

@@ -3,6 +3,7 @@ package com.becker.foreger;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -19,11 +20,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    // Creating variables and firebase variable
     private TextView register;
     private Button login;
     private EditText editEmail, editPassword;
-
-
     private FirebaseAuth mAuth;
 
 
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initializing variables
         register = (TextView) findViewById(R.id.register);
         register.setOnClickListener(this);
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    // Setting login and register buttons
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -62,11 +64,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    // Creating login function
     private void userLogin() {
 
         String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
+
+        // Validating user input
         if(email.isEmpty()) {
             editEmail.setError("Enter a valid email.");
             editEmail.requestFocus();
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+        // Checking authentication
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

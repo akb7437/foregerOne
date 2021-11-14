@@ -4,20 +4,26 @@ import java.lang.ref.Reference;
 
 public class Mushroom {
 
+    /*************************
+     *
+     * Constructor to create a mushroom object
+     *
+     **************************/
+
+
     String Name;
     String Location;
     String Edible;
     String Description;
-    //String Photo;
 
-    public Mushroom(){}
+    public Mushroom() {
+    }
 
     public Mushroom(String name, String location, String edible, String description) {
         Name = name;
         Location = location;
         Edible = edible;
         Description = description;
-      //  Photo = photo;
 
     }
 
@@ -53,11 +59,4 @@ public class Mushroom {
         Description = description;
     }
 
-   // public String getPhoto() {
-   //     return Photo;
-   // }
-
-  //  public void setPhoto(String photo) {
-   //     Photo = photo;
-  //  }
 }

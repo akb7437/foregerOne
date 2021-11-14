@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 
 public class MushroomFinder extends AppCompatActivity {
 
+    // Creating database and recyclerview variables
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView iMushroomList;
     private FirestoreRecyclerAdapter adapter;
@@ -34,18 +35,22 @@ public class MushroomFinder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mushroom_finder);
+
+        // Initializing firebase instance and view holder
         firebaseFirestore = FirebaseFirestore.getInstance();
         iMushroomList = findViewById(R.id.mushroomList);
         aRef = FirebaseDatabase.getInstance().getReference();
+
+        //Adding back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // query
+        // Querying data from database to be displayed in the recycler view
         Query query = firebaseFirestore.collection("Mushrooms");
-
         FirestoreRecyclerOptions<Mushroom>
                 options = new FirestoreRecyclerOptions.Builder<Mushroom>()
                 .setQuery(query, Mushroom.class).build();
 
+        //Creating an adapter function to display the database contents in my recyclerview
         adapter = new FirestoreRecyclerAdapter<Mushroom, MushroomViewHolder>(options) {
             @NonNull
             @Override
@@ -54,6 +59,7 @@ public class MushroomFinder extends AppCompatActivity {
                 return new MushroomViewHolder(view);
             }
 
+            // Setting mushroom object
             @Override
             protected void onBindViewHolder(@NonNull MushroomViewHolder holder, int position, @NonNull Mushroom model) {
 
@@ -70,8 +76,10 @@ public class MushroomFinder extends AppCompatActivity {
 
     }
 
-    private class MushroomViewHolder extends RecyclerView.ViewHolder{
 
+    private class MushroomViewHolder extends RecyclerView.ViewHolder {
+
+        //Creating place holders mushroom objects
         private ImageView list_image;
         private TextView list_name;
         private TextView list_location;
@@ -89,6 +97,7 @@ public class MushroomFinder extends AppCompatActivity {
         }
     }
 
+    // listening for Query data
     @Override
     protected void onStop() {
         super.onStop();
@@ -100,5 +109,5 @@ public class MushroomFinder extends AppCompatActivity {
         super.onStart();
         adapter.startListening();
     }
-    }
+}
 

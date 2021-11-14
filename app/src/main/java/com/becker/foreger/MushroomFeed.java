@@ -7,6 +7,11 @@ import com.google.firebase.firestore.GeoPoint;
 
 public class MushroomFeed {
 
+    /*************************
+     *
+     * Constructor to create a mushroom Feed object
+     *
+     **************************/
 
     String MushroomFound;
     String Name;

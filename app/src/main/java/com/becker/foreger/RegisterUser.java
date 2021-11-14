@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
 
-
+    // Creating firebase and user variables
     private FirebaseAuth mAuth;
     public TextView title;
     public Button registerUser;
@@ -31,6 +31,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
+        // Initializing Firebase instance and user variables
         mAuth = FirebaseAuth.getInstance();
 
         title = (TextView) findViewById(R.id.newUserTitle);
@@ -44,6 +45,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    // Setting actions for login and create buttons
     @Override
     public void onClick(View v) {
 
@@ -60,9 +62,11 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
     public void registerUser() {
 
+        // taking user data and making it a string
         String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
+        // Validating user input
         if (email.isEmpty()) {
             editEmail.setError("Enter a valid Email");
             editEmail.requestFocus();
@@ -88,6 +92,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
+        // Creating a new user and writing it to the database
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
