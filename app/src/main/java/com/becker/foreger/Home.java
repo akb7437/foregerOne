@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +32,12 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         firebaseFirestore1 = FirebaseFirestore.getInstance();
         iMushroomFeed = findViewById(R.id.mushroomFeedList);
+
 
         index = (Button) findViewById(R.id.goToIdentifier);
         index.setOnClickListener(this);
@@ -118,5 +122,12 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    public class CustomLinearLayoutManager extends LinearLayoutManager {
+        public CustomLinearLayoutManager(Context context) {
+            super(context);
+        }
+
+
+    }
 
 }

@@ -37,7 +37,7 @@ public class MushroomFinder extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         iMushroomList = findViewById(R.id.mushroomList);
         aRef = FirebaseDatabase.getInstance().getReference();
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // query
         Query query = firebaseFirestore.collection("Mushrooms");

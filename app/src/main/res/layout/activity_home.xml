@@ -24,7 +24,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mushroomFeedList"
         android:layout_width="match_parent"
-        android:layout_height="500dp"/>
+        android:layout_height="400dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
